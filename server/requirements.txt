@@ -1,3 +1,12 @@
-fastapi
+fastapi[standard]
 pymupdf
 python-dotenv
+jinja2
+
+
+# Embeddings
+langchain
+langchain-google-genai
+langchain-text-splitters
+langchain-core
+numpy

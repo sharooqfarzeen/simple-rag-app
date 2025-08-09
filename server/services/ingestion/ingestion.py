@@ -5,10 +5,14 @@ import asyncio
 import logging
 import fitz
 
+# Services
+from services.embedding.embedding import EmbeddingService
 
 logger = logging.getLogger(__name__)
 
 class IngestionService:
+    def __init__(self, embedding_service: EmbeddingService):
+        self.embedding_service = embedding_service
 
     async def _validate_file(self, file: UploadFile = File(...)):
         if file.content_type != "application/pdf":
@@ -48,4 +52,11 @@ class IngestionService:
             raise HTTPException(status_code=500, detail="Error extracting text from file")
         
         # Create embeddings
+        try:
+            await self.embedding_service.embed_and_store(text)
+        except Exception as e:
+            logger.error(f"Error creating embeddings: {e}")
+            raise HTTPException(status_code=500, detail="Error creating embeddings")
+        
         # Return success
+        return {"success": True, "message": "File ingested successfully"}
