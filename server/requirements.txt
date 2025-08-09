@@ -1,0 +1,3 @@
+fastapi
+pymupdf
+python-dotenv
