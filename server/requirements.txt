@@ -2,6 +2,7 @@ fastapi[standard]
 pymupdf
 python-dotenv
 jinja2
+streamlit
 
 
 # Embeddings
